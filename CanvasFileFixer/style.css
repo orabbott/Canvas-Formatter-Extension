@@ -1,0 +1,25 @@
+#content,
+iframe[src*="viewer"],
+.pdf-viewer-container {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+body, html {
+    height: 100% !important;
+}
+
+iframe {
+    height: 100vh !important;
+    min-height: 100vh !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+#doc_preview {
+    min-height: 89vh !important;
+    max-height: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
