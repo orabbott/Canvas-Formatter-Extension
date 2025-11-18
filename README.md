@@ -3,4 +3,7 @@ Chrome Extension made to format Canvas' file viewer. By default, the file only t
 
 
 Before:
-![alt text](https://github.com/orabbott/Canvas-Formatter-Extension/blob/main/Examples/After.png) "Logo Title Text 1")
+![alt text](https://github.com/orabbott/Canvas-Formatter-Extension/blob/main/Examples/After.png)
+
+After: 
+![alt text](https://github.com/orabbott/Canvas-Formatter-Extension/blob/main/Examples/Before.png)
