@@ -7,3 +7,5 @@ Before:
 ![alt text](https://github.com/orabbott/Canvas-Formatter-Extension/blob/main/Examples/Before.png)
 
 After: 
+
+![alt text](https://github.com/orabbott/Canvas-Formatter-Extension/blob/main/Examples/After.png)
