@@ -1,0 +1,12 @@
+document.querySelector('h2').remove();
+document.getElementById('breadcrumbs').style.color = '#333333';
+const link1 = document.querySelector('a[download="true"]');
+const ref = link1.href;
+const size = document.querySelector('a[download="true"]').closest('div');
+const download = document.querySelector('a[download="true"]').closest('a');
+const links = document.querySelectorAll('li[aria-current="page"] a');
+links[1].replaceWith(download);
+download.style.color = '#ffffff';
+download.classList.add('dowwnload');
+document.querySelector('.ic-Layout-watermark')?.remove();
+document.getElementById('content').children[0].remove();

@@ -1,0 +1,35 @@
+#content,
+iframe[src*="viewer"],
+.pdf-viewer-container {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+body, html {
+    height: 100%;
+}
+
+iframe {
+    height: 100vh;
+    min-height: 100vh;
+    margin-top: 0;
+    padding-top: 0
+}
+
+#doc_preview {
+    min-height: 89vh;
+    max-height: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dowwnload {
+    color: white;
+    border: 2px solid black;
+    padding: 8px;
+    border-radius: 20px;
+    border-color: #2a2e34;
+    background-color: #464F5B;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
