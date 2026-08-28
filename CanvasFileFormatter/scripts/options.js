@@ -45,10 +45,15 @@ addBtn.addEventListener('click', () => {
       render(list);
       originInput.value = '';
     });
-    // open a full tab to request host permission there (more reliable than requesting from popup)
-    const url = chrome.runtime.getURL('options.html') + '?request=' + encodeURIComponent(originOnly);
-    chrome.tabs.create({url}, (tab) => {
-      try { window.close(); } catch (e) {}
+    // request host permission now (must be called during this user gesture)
+    const pattern = originOnly + '/*';
+    chrome.permissions.request({origins: [pattern]}, (granted) => {
+      if (granted) {
+        console.log('Permission granted for', pattern);
+      } else {
+        console.warn('Permission NOT granted for', pattern);
+        alert('Permission not granted. To enable injection, open the extension Details → Site access and add the site.');
+      }
     });
   } catch (e) {
     alert('Please enter a valid URL or hostname.');
@@ -57,23 +62,4 @@ addBtn.addEventListener('click', () => {
 
 loadAndRender();
 
-// If this page was opened with ?request=<origin>, perform the permissions.request here
-(() => {
-  const params = new URLSearchParams(location.search);
-  const toReq = params.get('request');
-  if (toReq) {
-    const pattern = toReq + '/*';
-    chrome.permissions.request({origins: [pattern]}, (granted) => {
-      if (granted) {
-        console.log('Permission granted for', pattern);
-        // remove the query param from the URL for cleanliness
-        history.replaceState({}, document.title, 'options.html');
-        // update UI
-        chrome.storage.sync.get({origins: []}, (res) => render(res.origins || []));
-      } else {
-        console.warn('Permission NOT granted for', pattern);
-        alert('Permission not granted. To enable injection, open the extension Details → Site access and add the site.');
-      }
-    });
-  }
-})();
+// no deferred permission requests — requests must be initiated by a user gesture
