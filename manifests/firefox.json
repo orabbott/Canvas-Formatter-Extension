@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Canvas File Formatter",
+  "version": "1.4",
+  "description": "Modifies the Canvas file viewer to remove unnecessary space.",
+  "icons": {
+    "128": "images/canvas.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "canvas-file-formatter@addons.mozilla.org",
+      "data_collection_permissions": {
+        "required": ["none"],
+        "collects_personal_data": false,
+        "collects_browsing_data": false
+      }
+    }
+  },
+  "action": {
+    "default_icon": "images/canvas.png",
+    "default_popup": "options.html"
+  },
+  "permissions": [
+    "storage",
+    "scripting",
+    "activeTab",
+    "tabs"
+  ],
+  "optional_host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
+  "background": {
+    "scripts": ["scripts/background.js"]
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
+}
