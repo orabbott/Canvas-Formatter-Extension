@@ -41,8 +41,22 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete') handleTab(tabId, changeInfo, tab);
 });
 
+// The options popup closes as soon as a permission prompt appears, so it can't
+// finish its own storage write. It hands the origin to the worker instead.
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  if (!msg || msg.type !== 'addOrigin' || !msg.origin) return;
+  chrome.storage.sync.get({origins: []}, (res) => {
+    const list = res.origins || [];
+    if (!list.includes(msg.origin)) list.push(msg.origin);
+    chrome.storage.sync.set({origins: list}, () => sendResponse({origins: list}));
+  });
+  return true; // keep the message channel open for the async response
+});
+
 chrome.runtime.onInstalled.addListener(() => {
-  // initialize with the existing example domain to keep previous behavior
+  // initialize with the existing example domain to keep previous behavior.
+  // Host permission can't be requested from here (no user gesture) — the
+  // options page prompts for it the next time the user opens it.
   chrome.storage.sync.get({origins: []}, (res) => {
     if (!res.origins || res.origins.length === 0) {
       chrome.storage.sync.set({origins: ['https://canvas.ku.edu']});
