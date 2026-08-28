@@ -31,8 +31,13 @@ async function handleTab(tabId, changeInfo, tab) {
         console.warn('No host permission for', pattern, '- add the site on the options page.');
         return;
       }
-      chrome.scripting.insertCSS({target: {tabId}, files: ['style.css']}).catch((e) => console.error('insertCSS failed', e));
-      chrome.scripting.executeScript({target: {tabId}, files: ['scripts/content.js']}).catch((e) => console.error('executeScript failed', e));
+      // callback form, not promises: Firefox's chrome.* namespace is callback-based
+      chrome.scripting.insertCSS({target: {tabId}, files: ['style.css']}, () => {
+        if (chrome.runtime.lastError) console.error('insertCSS failed', chrome.runtime.lastError.message);
+      });
+      chrome.scripting.executeScript({target: {tabId}, files: ['scripts/content.js']}, () => {
+        if (chrome.runtime.lastError) console.error('executeScript failed', chrome.runtime.lastError.message);
+      });
     });
   }
 }
